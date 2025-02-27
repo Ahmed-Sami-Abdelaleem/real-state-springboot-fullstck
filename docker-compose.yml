@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: realestate-fullstack-javaee
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: r00t_P@ssw0rd!2025
+      MYSQL_DATABASE: realstate
+      MYSQL_USER: realstateuser
+      MYSQL_PASSWORD: T@sk_Us3r_P@ss!2025
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - mysql-data:/var/lib/mysql
+    networks:
+      - task-network
+
+  backend:
+    build: ./backend
+    container_name: realstate-backend
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: realstate
+      MYSQL_USER: realstateuser
+      MYSQL_PASSWORD: T@sk_Us3r_P@ss!2025
+      JAVA_OPTS: -Xmx512m
+    networks:
+      - task-network
+
+  frontend:
+    build: ./frontend
+    container_name: realstate-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080/api
+    networks:
+      - task-network
+
+networks:
+  task-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
