@@ -20,7 +20,9 @@ services:
       - task-network
 
   backend:
-    build: ./backend
+    build: 
+      context: ./backend
+      dockerfile: src/main/resources/Dockerfile
     container_name: realstate-backend
     restart: always
     depends_on:

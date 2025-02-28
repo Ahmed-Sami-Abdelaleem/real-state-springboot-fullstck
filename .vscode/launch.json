@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ModernApplication<modern>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.modern.ModernApplication",
+            "projectName": "modern",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
