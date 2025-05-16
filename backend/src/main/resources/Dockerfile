@@ -17,7 +17,8 @@ FROM eclipse-temurin:23-jdk-alpine
 WORKDIR /app
 
 # Copy the built JAR from the previous stage
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/target/realestate-0.0.1-SNAPSHOT.jar app.jar
+
 
 EXPOSE 8080
 

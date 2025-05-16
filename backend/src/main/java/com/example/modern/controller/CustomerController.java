@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/customers")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")  
 public class CustomerController {
     private final CustomerRepository customerRepository;
 
